@@ -36,6 +36,17 @@ namespace SkinPackCreator
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void MenuInstalledSkinPacks_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ClickEvents.OpenInstalledSkinFolder();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private async void MenuSave_Click(object sender, EventArgs e)
         {
             try
@@ -43,7 +54,7 @@ namespace SkinPackCreator
                 await ClickEvents.SaveMcpack(this).ConfigureAwait(true);
                 if (Global.InstallFile)
                 {
-                    Process.Start("explorer.exe", Global.McpackFilePath);
+                    Process.Start(Global.McpackFilePath);
                     Global.InstallFile = false;
                 }
             }
@@ -98,7 +109,7 @@ namespace SkinPackCreator
             {
                 if (String.IsNullOrEmpty(Global.McpackFilePath))
                 {
-                    MessageBox.Show("Create a new McPack first!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Create a new Skin Pack first!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -348,7 +359,7 @@ namespace SkinPackCreator
         public static readonly string LocName = "YourSkinPacksLocName";
         public static readonly string DefaultSkinFormat = "geometry.humanoid.custom";
 
-        public static string WorkDir {get;set;}
+        public static string WorkDir { get; set; }
         public static string McpackFilePath { get; set; }
         public static bool InstallFile { get; set; }
         public static Models.SkinModel Skins { get; set; }

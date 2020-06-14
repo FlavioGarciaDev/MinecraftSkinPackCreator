@@ -34,6 +34,7 @@ namespace SkinPackCreator
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.menuNewMcpack = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOpenMcpack = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuOpenInstallFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.menuInstall = new System.Windows.Forms.ToolStripMenuItem();
             this.listSkins = new System.Windows.Forms.ListBox();
@@ -70,12 +71,13 @@ namespace SkinPackCreator
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuNewMcpack,
             this.menuOpenMcpack,
+            this.menuOpenInstallFolder,
             this.menuSave,
             this.menuInstall});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStripMain.Size = new System.Drawing.Size(759, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(867, 24);
             this.menuStripMain.TabIndex = 0;
             // 
             // menuNewMcpack
@@ -91,6 +93,13 @@ namespace SkinPackCreator
             this.menuOpenMcpack.Size = new System.Drawing.Size(98, 20);
             this.menuOpenMcpack.Text = "Open SkinPack";
             this.menuOpenMcpack.Click += new System.EventHandler(this.MenuOpenMcpack_Click);
+            // 
+            // menuOpenInstallFolder
+            // 
+            this.menuOpenInstallFolder.Name = "menuOpenInstallFolder";
+            this.menuOpenInstallFolder.Size = new System.Drawing.Size(96, 20);
+            this.menuOpenInstallFolder.Text = "Installed Packs";
+            this.menuOpenInstallFolder.Click += new System.EventHandler(this.MenuInstalledSkinPacks_Click);
             // 
             // menuSave
             // 
@@ -268,7 +277,7 @@ namespace SkinPackCreator
             this.statusLabel.Location = new System.Drawing.Point(0, 465);
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
-            this.statusLabel.Size = new System.Drawing.Size(759, 22);
+            this.statusLabel.Size = new System.Drawing.Size(867, 22);
             this.statusLabel.TabIndex = 10;
             // 
             // toolStripStatus
@@ -319,7 +328,7 @@ namespace SkinPackCreator
             this.buttonDonate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
             this.buttonDonate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDonate.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonDonate.Location = new System.Drawing.Point(482, 0);
+            this.buttonDonate.Location = new System.Drawing.Point(590, 0);
             this.buttonDonate.Margin = new System.Windows.Forms.Padding(0);
             this.buttonDonate.Name = "buttonDonate";
             this.buttonDonate.Size = new System.Drawing.Size(273, 24);
@@ -333,7 +342,7 @@ namespace SkinPackCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(759, 487);
+            this.ClientSize = new System.Drawing.Size(867, 487);
             this.Controls.Add(this.buttonDonate);
             this.Controls.Add(this.comboBoxFormat);
             this.Controls.Add(this.buttonRemove);
@@ -353,7 +362,7 @@ namespace SkinPackCreator
             this.Controls.Add(this.listSkins);
             this.Controls.Add(this.menuStripMain);
             this.Name = "Form1";
-            this.Text = "Minecraft Skin Pack Creator for Bedrock Edition - v1.0";
+            this.Text = "Minecraft Skin Pack Creator for Bedrock Edition - v1.0.0";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.menuStripMain.ResumeLayout(false);
@@ -397,6 +406,7 @@ namespace SkinPackCreator
         private System.Windows.Forms.Label labelPackName;
         private System.Windows.Forms.ComboBox comboBoxFormat;
         private System.Windows.Forms.Button buttonDonate;
+        private System.Windows.Forms.ToolStripMenuItem menuOpenInstallFolder;
     }
 }
 

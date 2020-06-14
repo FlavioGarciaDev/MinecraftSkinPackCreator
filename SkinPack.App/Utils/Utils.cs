@@ -14,7 +14,7 @@ namespace SkinPackCreator.Utils
         private const string SKINLIST_EMPTY = "Your list is now empty. :(";
         private const string IMAGE_NOT_FOUND = "No image found on the selected item.";
         private const string UUID_API_URL = "https://www.uuidgenerator.net/api/version4";
-        private readonly string DonateUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CMXPUT4TV9QWS&currency_code=USD&source=url";
+        private const string DONATE_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CMXPUT4TV9QWS&currency_code=USD&source=url";
 
         public void SelectNextListItem(Form1 form, int index)
         {
@@ -119,13 +119,7 @@ namespace SkinPackCreator.Utils
         }
         public void OpenDonate()
         {
-            Process.Start(DonateUrl);
-            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //{
-            //    DonateUrl = DonateUrl.Replace("&", "^&");
-            //    Process.Start(new ProcessStartInfo("cmd", $"/c start {DonateUrl}") { CreateNoWindow = true });
-            //}
-
+            Process.Start(DONATE_URL);
         }
     }
 }

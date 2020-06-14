@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Forms;
-using File = SkinPackCreator.FileProcessing;
-using Folder = SkinPackCreator.FolderProcessing;
+using FileProcessing = SkinPackCreator.FileProcessing;
+using FolderProcessing = SkinPackCreator.FolderProcessing;
 using System.Threading.Tasks;
 using System.Data;
 using SkinPackCreator.Models;
@@ -18,13 +18,13 @@ namespace SkinPackCreator.ClickEvents
         private const string MCPACK_CREATED = "New McPack created!";
         private const string NEW_SKIN = "A new item has been added!";
 
-        private File.FileProcessing FileProcessing { get; set; }
-        private Folder.FolderProcessing FolderProcessing { get; set; }
+        private FileProcessing.FileProcessing FileProcessing { get; set; }
+        private FolderProcessing.FolderProcessing FolderProcessing { get; set; }
         private Utils.Utils Utils { get; set; }
         public ClickEvents()
         {
-            FileProcessing = new File.FileProcessing();
-            FolderProcessing = new Folder.FolderProcessing();
+            FileProcessing = new FileProcessing.FileProcessing();
+            FolderProcessing = new FolderProcessing.FolderProcessing();
             Utils = new Utils.Utils();
         }
 
@@ -57,7 +57,6 @@ namespace SkinPackCreator.ClickEvents
         {
             if (Global.Skins.SkinList.Count > 0)
             {
-
                 FileProcessing.CreateSkinsJsonFile(form);
                 FileProcessing.CreateEnUsLangFile(form);
                 FileProcessing.CreateLanguagesJsonFile(form);
@@ -67,7 +66,6 @@ namespace SkinPackCreator.ClickEvents
             else
             {
                 MessageBox.Show("There's nothing to save!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
             }
         }
         public void OpenMcPackFile(Form1 form)
@@ -114,7 +112,7 @@ namespace SkinPackCreator.ClickEvents
                 Global.Skins.SkinList[Index].SkinTextureFile = NomeArquivo;
                 form.Set_SkinTexture(NomeArquivo);
 
-                System.IO.File.Copy(Ofd.FileName, $"{Global.WorkDir}\\{NomeArquivo}", true);
+                File.Copy(Ofd.FileName, $"{Global.WorkDir}\\{NomeArquivo}", true);
 
                 form.Set_SkinBoxPicture(Utils.LoadImagePreview(form, Index));
 
@@ -146,13 +144,17 @@ namespace SkinPackCreator.ClickEvents
             int Index = form.Get_SkinListSelectedIndex();
             var ImageFile = $"{Global.WorkDir}\\{Global.Skins.SkinList[Index].SkinTextureFile}";
 
-            if (System.IO.File.Exists(ImageFile))
-                System.IO.File.Delete(ImageFile);
+            if (File.Exists(ImageFile))
+                File.Delete(ImageFile);
 
             Global.Skins.SkinList.RemoveAt(Index);
 
             FileProcessing.FillSkinsList(form);
             Utils.SelectNextListItem(form, Index);
+        }
+        public void OpenInstalledSkinFolder()
+        {
+            FolderProcessing.OpenInstalledPacks();
         }
     }
 }
