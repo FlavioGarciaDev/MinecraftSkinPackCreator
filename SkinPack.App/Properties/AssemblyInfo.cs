@@ -1,15 +1,14 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MinecraftSkinPackCreator")]
+[assembly: AssemblyTitle("Minecraft Skin Pack Creator")]
 [assembly: AssemblyDescription("Simple tool to create Skin Pack for Minecraft Bedrock Edition (Windows 10)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MinecraftSkinPackCreator")]
+[assembly: AssemblyCompany("Flavio Garcia")]
+[assembly: AssemblyProduct("Minecraft Skin Pack Creator")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b7f1fa8c-d214-4967-8da2-77dce9997039")]
+[assembly: Guid("5abe4683-50cc-4190-9a14-dec1010e45da")]
 
 // Version information for an assembly consists of the following four values:
 //
