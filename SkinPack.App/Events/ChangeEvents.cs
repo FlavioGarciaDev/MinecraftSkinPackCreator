@@ -30,6 +30,8 @@ namespace SkinPackCreator.ChangeEvents
         {
             int Index = form.Get_SkinListSelectedIndex();
             string ChangedSkinName = form.Get_SkinName();
+            if (Index < 0)
+                return;
 
             if (Global.Skins.SkinList[Index].SkinName != ChangedSkinName && !String.IsNullOrEmpty(ChangedSkinName))
             {

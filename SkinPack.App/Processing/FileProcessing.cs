@@ -27,6 +27,14 @@ namespace SkinPackCreator.FileProcessing
         {
             form.Set_StatusLabel($"Creating {Global.SkinJsonFilePath}...");
 
+            var LocName = form.Get_PackName().Replace(" ", "");
+            if (!String.IsNullOrEmpty(LocName))
+            {
+                Global.Skins.PackLocName = LocName;
+                Global.Skins.PackSerializeName = LocName;
+                Global.LocName = LocName;
+            }
+
             var JsonSkins = JsonConvert.SerializeObject(Global.Skins, Formatting.Indented);
 
             File.WriteAllText(Global.SkinJsonFilePath, JsonSkins);
@@ -154,9 +162,10 @@ namespace SkinPackCreator.FileProcessing
             form.ClearSkinsList();
 
             foreach (var item in Global.Skins.SkinList)
-            {
                 form.Set_SkinListAddItem(item.SkinName);
-            }
+
+            if (Global.Skins.SkinList.Count > 0)
+                form.Set_SkinListSelectedItem(0);
 
             form.Set_StatusLabel(SKINLIST_OK);
         }
@@ -186,6 +195,6 @@ namespace SkinPackCreator.FileProcessing
                 }
             }
         }
-        
+
     }
 }
