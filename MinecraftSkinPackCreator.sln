@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinPack.App", "SkinPack.App\SkinPack.App.csproj", "{B7F1FA8C-D214-4967-8DA2-77DCE9997039}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinPack.Models", "SkinPack.Models\SkinPack.Models.csproj", "{3815C7D8-8C44-4845-9047-86495872160A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7F1FA8C-D214-4967-8DA2-77DCE9997039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7F1FA8C-D214-4967-8DA2-77DCE9997039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7F1FA8C-D214-4967-8DA2-77DCE9997039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7F1FA8C-D214-4967-8DA2-77DCE9997039}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3815C7D8-8C44-4845-9047-86495872160A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3815C7D8-8C44-4845-9047-86495872160A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3815C7D8-8C44-4845-9047-86495872160A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3815C7D8-8C44-4845-9047-86495872160A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C446077B-C949-49D7-8306-9FBBCFE45135}
+	EndGlobalSection
+EndGlobal
