@@ -14,7 +14,7 @@ namespace SkinPackCreator.Utils
         private const string SKINLIST_EMPTY = "Your list is now empty. :(";
         private const string IMAGE_NOT_FOUND = "No image found on the selected item.";
         private const string UUID_API_URL = "https://www.uuidgenerator.net/api/version4";
-        private const string DONATE_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CMXPUT4TV9QWS&currency_code=USD&source=url";
+        private const string DONATE_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CMXPUT4TV9QWS&item_name=Minecraft+Skin+Pack+Creator&currency_code=USD";
 
         public void SelectNextListItem(Form1 form, int index)
         {
