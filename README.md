@@ -1,5 +1,5 @@
 # Minecraft Skin Pack Creator
-Skin Pack Creator for the Bedrock Edition (Windows 10) of Minecraft. It will create the .mcpack file so you can install it yourself or export directly to Minecraft.
+Skin Pack Creator for the Bedrock Edition of Minecraft. It will create the .mcpack file so you can install it yourself or export directly to Minecraft.
 There's a quick guide below.
 
 ![Alt text](Instructions/0.png "Simple Windows Forms")
