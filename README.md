@@ -51,7 +51,7 @@ You can report bugs and suggest new features. I will try my best to fulfill them
 
 ## Donate
 
-If you enjoyed and the app and want to buy me a cup of coffee, just click the donate button here or on the app. Any amount is more than welcome in this trying times. :)
+If you enjoyed the app and want to buy me a cup of coffee, just click the donate button here or in the app. Any amount is more than welcome in this trying times. :)
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CMXPUT4TV9QWS&item_name=Minecraft+Skin+Pack+Creator&currency_code=USD)
 
