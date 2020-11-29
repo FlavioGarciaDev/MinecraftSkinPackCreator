@@ -59,6 +59,7 @@ namespace SkinPackCreator
             this.buttonRemove = new System.Windows.Forms.Button();
             this.comboBoxFormat = new System.Windows.Forms.ComboBox();
             this.buttonDonate = new System.Windows.Forms.Button();
+            this.buttonImportMultiple = new System.Windows.Forms.Button();
             this.menuStripMain.SuspendLayout();
             this.groupSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSkin)).BeginInit();
@@ -131,7 +132,7 @@ namespace SkinPackCreator
             this.listSkins.FormattingEnabled = true;
             this.listSkins.Location = new System.Drawing.Point(25, 112);
             this.listSkins.Name = "listSkins";
-            this.listSkins.Size = new System.Drawing.Size(177, 342);
+            this.listSkins.Size = new System.Drawing.Size(177, 316);
             this.listSkins.TabIndex = 100;
             this.listSkins.SelectedIndexChanged += new System.EventHandler(this.ListSkins_SelectedIndexChanged);
             // 
@@ -338,11 +339,23 @@ namespace SkinPackCreator
             this.buttonDonate.UseVisualStyleBackColor = false;
             this.buttonDonate.Click += new System.EventHandler(this.ButtonDonate_Click);
             // 
+            // buttonImportMultiple
+            // 
+            this.buttonImportMultiple.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonImportMultiple.Location = new System.Drawing.Point(25, 434);
+            this.buttonImportMultiple.Name = "buttonImportMultiple";
+            this.buttonImportMultiple.Size = new System.Drawing.Size(177, 20);
+            this.buttonImportMultiple.TabIndex = 102;
+            this.buttonImportMultiple.Text = "Import Multiple PNGs";
+            this.buttonImportMultiple.UseVisualStyleBackColor = true;
+            this.buttonImportMultiple.Click += new System.EventHandler(this.buttonImportMultiple_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(867, 487);
+            this.Controls.Add(this.buttonImportMultiple);
             this.Controls.Add(this.buttonDonate);
             this.Controls.Add(this.comboBoxFormat);
             this.Controls.Add(this.buttonRemove);
@@ -362,7 +375,7 @@ namespace SkinPackCreator
             this.Controls.Add(this.listSkins);
             this.Controls.Add(this.menuStripMain);
             this.Name = "Form1";
-            this.Text = "Minecraft Skin Pack Creator for Bedrock Edition - v1.0.0";
+            this.Text = "Minecraft Skin Pack Creator for Bedrock Edition - v1.1.0";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.menuStripMain.ResumeLayout(false);
@@ -407,6 +420,7 @@ namespace SkinPackCreator
         private System.Windows.Forms.ComboBox comboBoxFormat;
         private System.Windows.Forms.Button buttonDonate;
         private System.Windows.Forms.ToolStripMenuItem menuOpenInstallFolder;
+        private System.Windows.Forms.Button buttonImportMultiple;
     }
 }
 

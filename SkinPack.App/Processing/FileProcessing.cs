@@ -27,65 +27,65 @@ namespace SkinPackCreator.FileProcessing
         {
             form.Set_StatusLabel($"Creating {Global.SkinJsonFilePath}...");
 
-            var LocName = form.Get_PackName().Replace(" ", "");
-            if (!String.IsNullOrEmpty(LocName))
+            var locName = form.Get_PackName().Replace(" ", "");
+            if (!String.IsNullOrEmpty(locName))
             {
-                Global.Skins.PackLocName = LocName;
-                Global.Skins.PackSerializeName = LocName;
-                Global.LocName = LocName;
+                Global.Skins.PackLocName = locName;
+                Global.Skins.PackSerializeName = locName;
+                Global.LocName = locName;
             }
 
-            var JsonSkins = JsonConvert.SerializeObject(Global.Skins, Formatting.Indented);
+            var jsonSkins = JsonConvert.SerializeObject(Global.Skins, Formatting.Indented);
 
-            File.WriteAllText(Global.SkinJsonFilePath, JsonSkins);
+            File.WriteAllText(Global.SkinJsonFilePath, jsonSkins);
 
             form.Set_StatusLabel($"{Global.SkinJsonFilePath} created!");
 
         }
         public void CreateEnUsLangFile(Form1 form)
         {
-            var EnUsLangFile = Global.EnUsLangFilePath;
+            var enUsLangFile = Global.EnUsLangFilePath;
 
-            form.Set_StatusLabel($"Creating {EnUsLangFile}...");
+            form.Set_StatusLabel($"Creating {enUsLangFile}...");
 
-            var Lines = new StringBuilder();
+            var lines = new StringBuilder();
 
-            Lines.AppendLine($"{Global.SkinPackLine}={form.Get_PackName()}");
-            Lines.AppendLine($"{Global.PackNameLine}={form.Get_PackName()}");
-            Lines.AppendLine($"{Global.PackDescriptionLine}={form.Get_PackDescription()}");
+            lines.AppendLine($"{Global.SkinPackLine}={form.Get_PackName()}");
+            lines.AppendLine($"{Global.PackNameLine}={form.Get_PackName()}");
+            lines.AppendLine($"{Global.PackDescriptionLine}={form.Get_PackDescription()}");
 
             foreach (var item in Global.Skins.SkinList)
             {
-                Lines.AppendLine($"{Global.SkinLine}.{item.SkinName}={item.SkinName}");
+                lines.AppendLine($"{Global.SkinLine}.{item.SkinName}={item.SkinName}");
             }
 
-            File.WriteAllText(EnUsLangFile, Lines.ToString());
+            File.WriteAllText(enUsLangFile, lines.ToString());
 
-            form.Set_StatusLabel($"{EnUsLangFile} created!");
+            form.Set_StatusLabel($"{enUsLangFile} created!");
         }
         public void CreateLanguagesJsonFile(Form1 form)
         {
-            var LanguagesJsonFile = Global.LanguagesJsonFilePath;
-            var Content = $"[\"{Path.GetFileNameWithoutExtension(Global.EnUsLangFilePath)}\"]";
+            var languagesJsonFile = Global.LanguagesJsonFilePath;
+            var content = $"[\"{Path.GetFileNameWithoutExtension(Global.EnUsLangFilePath)}\"]";
 
-            form.Set_StatusLabel($"Creating {LanguagesJsonFile}...");
+            form.Set_StatusLabel($"Creating {languagesJsonFile}...");
 
-            File.WriteAllText(LanguagesJsonFile, Content);
+            File.WriteAllText(languagesJsonFile, content);
 
-            form.Set_StatusLabel($"{LanguagesJsonFile} created!");
+            form.Set_StatusLabel($"{languagesJsonFile} created!");
         }
         public async Task CreateManifestJsonFile(Form1 form)
         {
-            var ManifestJsonFile = Global.ManifestJsonFilePath;
+            var manifestJsonFile = Global.ManifestJsonFilePath;
 
             if (String.IsNullOrEmpty(Global.Manifest.Header.UUID))
             {
                 form.Set_StatusLabel($"Generating UUIDs...");
 
-                var Uuid1 = await Utils.RequestUUID();
-                var Uuid2 = await Utils.RequestUUID();
+                var uuid1 = await Utils.RequestUUID();
+                var uuid2 = await Utils.RequestUUID();
 
-                form.Set_StatusLabel($"Creating {ManifestJsonFile}...");
+                form.Set_StatusLabel($"Creating {manifestJsonFile}...");
 
                 Global.Manifest = new ManifestModel()
                 {
@@ -94,7 +94,7 @@ namespace SkinPackCreator.FileProcessing
                         Name = form.Get_PackName(),
                         Description = form.Get_PackDescription(),
                         Version = new int[] { 1, 0, 0 },
-                        UUID = Uuid1
+                        UUID = uuid1
                     },
                     Modules = new List<ModulesModel>()
                 {
@@ -102,7 +102,7 @@ namespace SkinPackCreator.FileProcessing
                     {
                         Version = new int[] { 1, 0, 0 },
                         Type = "skin_pack",
-                        UUID = Uuid2
+                        UUID = uuid2
                     }
                 },
                     FormatVersion = 1
@@ -114,9 +114,9 @@ namespace SkinPackCreator.FileProcessing
                 Global.Manifest.Header.Description = form.Get_PackDescription();
             }
 
-            File.WriteAllText(ManifestJsonFile, JsonConvert.SerializeObject(Global.Manifest, Formatting.Indented));
+            File.WriteAllText(manifestJsonFile, JsonConvert.SerializeObject(Global.Manifest, Formatting.Indented));
 
-            form.Set_StatusLabel($"{ManifestJsonFile} created!");
+            form.Set_StatusLabel($"{manifestJsonFile} created!");
         }
         public void CreateMcpackFile(Form1 form)
         {
@@ -135,15 +135,15 @@ namespace SkinPackCreator.FileProcessing
         }
         public void ExtractMcpackFile(Form1 form)
         {
-            string McpackFilePath = Global.McpackFilePath;
+            string mcpackFilePath = Global.McpackFilePath;
 
             form.Set_StatusLabel("Extracting McPack...");
 
-            Global.WorkDir = $"{Path.GetDirectoryName(McpackFilePath)}\\{Path.GetFileNameWithoutExtension(McpackFilePath)}";
+            Global.WorkDir = $"{Path.GetDirectoryName(mcpackFilePath)}\\{Path.GetFileNameWithoutExtension(mcpackFilePath)}";
 
-            using (ZipFile Zip = ZipFile.Read(McpackFilePath))
+            using (ZipFile zip = ZipFile.Read(mcpackFilePath))
             {
-                Zip.ExtractAll(Global.WorkDir, ExtractExistingFileAction.OverwriteSilently);
+                zip.ExtractAll(Global.WorkDir, ExtractExistingFileAction.OverwriteSilently);
             }
 
             form.Set_StatusLabel($"{Path.GetFileName(Global.McpackFilePath)} extracted!");
@@ -179,19 +179,19 @@ namespace SkinPackCreator.FileProcessing
         }
         public void LoadPackSettings(Form1 form)
         {
-            var EnUsLangFileContent = File.ReadAllLines(Global.EnUsLangFilePath);
+            var enUsLangFileContent = File.ReadAllLines(Global.EnUsLangFilePath);
 
-            foreach (var item in EnUsLangFileContent)
+            foreach (var item in enUsLangFileContent)
             {
                 if (item.Contains(Global.PackNameLine))
                 {
-                    var Name = item.Split('=');
-                    form.Set_PackName(Name[1]);
+                    var name = item.Split('=');
+                    form.Set_PackName(name[1]);
                 }
                 else if (item.Contains(Global.PackDescriptionLine))
                 {
-                    var Desc = item.Split('=');
-                    form.Set_PackDescription(Desc[1]);
+                    var desc = item.Split('=');
+                    form.Set_PackDescription(desc[1]);
                 }
             }
         }

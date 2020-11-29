@@ -14,8 +14,8 @@ namespace SkinPackCreator.FolderProcessing
 
         public void OpenInstalledPacks()
         {
-            var Folder = string.Format(INSTALLED_SKIN_FOLDER, System.Environment.GetEnvironmentVariable("USERPROFILE"));
-            Process.Start(Folder);
+            var folder = string.Format(INSTALLED_SKIN_FOLDER, System.Environment.GetEnvironmentVariable("USERPROFILE"));
+            Process.Start(folder);
         }
     }
 }

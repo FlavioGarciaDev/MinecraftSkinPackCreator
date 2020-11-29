@@ -13,44 +13,49 @@ namespace SkinPackCreator.ChangeEvents
             Process = new Process.FileProcessing();
         }
 
+        #region Public Methods
+
         public void SkinListIndexChanged(Form1 form)
         {
-            int Index = form.Get_SkinListSelectedIndex();
+            var index = form.Get_SkinListSelectedIndex();
 
-            form.Set_SkinName(Global.Skins.SkinList[Index].SkinName);
-            form.Set_SkinFormat(Global.Skins.SkinList[Index].SkinFormat);
-            form.Set_SkinTexture(Global.Skins.SkinList[Index].SkinTextureFile);
-            form.Set_SkinType(Global.Skins.SkinList[Index].SkinType);
-            form.Set_SkinBoxPicture(Utils.LoadImagePreview(form, Index));
+            form.Set_SkinName(Global.Skins.SkinList[index].SkinName);
+            form.Set_SkinFormat(Global.Skins.SkinList[index].SkinFormat);
+            form.Set_SkinTexture(Global.Skins.SkinList[index].SkinTextureFile);
+            form.Set_SkinType(Global.Skins.SkinList[index].SkinType);
+            form.Set_SkinBoxPicture(Utils.LoadImagePreview(form, index));
             
 
-            form.Set_StatusLabel($"{Global.Skins.SkinList[Index].SkinName} loaded.");
+            form.Set_StatusLabel($"{Global.Skins.SkinList[index].SkinName} loaded.");
         }
         public void SkinNameChanged(Form1 form)
         {
-            int Index = form.Get_SkinListSelectedIndex();
-            string ChangedSkinName = form.Get_SkinName();
-            if (Index < 0)
+            int index = form.Get_SkinListSelectedIndex();
+            if (index < 0)
                 return;
 
-            if (Global.Skins.SkinList[Index].SkinName != ChangedSkinName && !String.IsNullOrEmpty(ChangedSkinName))
-            {
-                string OldName = Global.Skins.SkinList[Index].SkinName;
-                string NewName = ChangedSkinName;
+            var changedSkinName = form.Get_SkinName();
 
-                Global.Skins.SkinList[Index].SkinName = ChangedSkinName;
+            if (Global.Skins.SkinList[index].SkinName != changedSkinName && !String.IsNullOrEmpty(changedSkinName))
+            {
+                var oldName = Global.Skins.SkinList[index].SkinName;
+                var newName = changedSkinName;
+
+                Global.Skins.SkinList[index].SkinName = changedSkinName;
 
                 Process.FillSkinsList(form);
-                Utils.SelectNextListItem(form, Index);
+                Utils.SelectNextListItem(form, index);
 
-                form.Set_StatusLabel($"{OldName} renamed to {NewName}.");
+                form.Set_StatusLabel($"{oldName} renamed to {newName}.");
             }
         }
         public void SkinFormatChanged(Form1 form)
         {
-            int Index = form.Get_SkinListSelectedIndex();
+            var index = form.Get_SkinListSelectedIndex();
 
-            Global.Skins.SkinList[Index].SkinFormat = form.Get_SkinFormat();
+            Global.Skins.SkinList[index].SkinFormat = form.Get_SkinFormat();
         }
+
+        #endregion
     }
 }

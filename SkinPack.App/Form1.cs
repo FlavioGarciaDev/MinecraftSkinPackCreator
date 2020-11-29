@@ -51,12 +51,11 @@ namespace SkinPackCreator
         {
             try
             {
-                await ClickEvents.SaveMcpack(this).ConfigureAwait(true);
-                if (Global.InstallFile)
-                {
+                var result = await ClickEvents.SaveMcpack(this).ConfigureAwait(true);
+                if (Global.InstallFile && result)
                     Process.Start(Global.McpackFilePath);
-                    Global.InstallFile = false;
-                }
+
+                Global.InstallFile = false;
             }
             catch (Exception ex)
             {
@@ -107,11 +106,8 @@ namespace SkinPackCreator
         {
             try
             {
-                if (String.IsNullOrEmpty(Global.McpackFilePath))
-                {
-                    MessageBox.Show("Create a new Skin Pack first!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (!IsMcpackCreated(sender, e))
                     return;
-                }
 
                 ClickEvents.AddNewSkin(this);
             }
@@ -132,6 +128,20 @@ namespace SkinPackCreator
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void buttonImportMultiple_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!IsMcpackCreated(sender, e))
+                    return;
+
+                ClickEvents.OpenMultipleTextureFiles(this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         private void ButtonDonate_Click(object sender, EventArgs e)
@@ -342,7 +352,27 @@ namespace SkinPackCreator
 
         #endregion
 
+        #region Private Methods
+
+        private bool IsMcpackCreated(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(Global.McpackFilePath))
+            {
+                MessageBox.Show("Create a new Skin Pack first!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MenuNewMcpack_Click(sender, e);
+
+                if (String.IsNullOrEmpty(Global.McpackFilePath))
+                    return false;
+            }
+
+            return true;
+        }
+
+        #endregion
     }
+
+    #region Global Variables
+
     public static class Global
     {
         public const string FormIconBase64 = "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";
@@ -373,4 +403,6 @@ namespace SkinPackCreator
         public static string SkinLine { get => $"skin.{LocName}"; }
         public static string SkinPackLine { get => $"skinpack.{LocName}"; }
     }
+
+    #endregion
 }

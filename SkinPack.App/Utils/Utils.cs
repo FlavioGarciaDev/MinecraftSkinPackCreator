@@ -18,7 +18,7 @@ namespace SkinPackCreator.Utils
 
         public void SelectNextListItem(Form1 form, int index)
         {
-            int NewIndex;
+            int newIndex;
 
             if (form.Get_SkinListItemsCount() <= 0)
             {
@@ -27,29 +27,29 @@ namespace SkinPackCreator.Utils
                 return;
             }
             else if (index <= Global.Skins.SkinList.Count - 1 && Global.Skins.SkinList.Count > 0)
-                NewIndex = index;
+                newIndex = index;
             else
-                NewIndex = --index;
+                newIndex = --index;
 
-            form.Set_SkinListSelectedItem(NewIndex);
+            form.Set_SkinListSelectedItem(newIndex);
         }
-        public Image LoadImagePreview(Form1 form, int Index)
+        public Image LoadImagePreview(Form1 form, int index)
         {
             try
             {
                 if (Global.Skins != null)
                 {
-                    if (!string.IsNullOrEmpty(Global.Skins.SkinList[Index].SkinTextureFile))
+                    if (!string.IsNullOrEmpty(Global.Skins.SkinList[index].SkinTextureFile))
                     {
-                        Image Imagem;
-                        var ImagePath = $"{Global.WorkDir}\\{Global.Skins.SkinList[Index].SkinTextureFile}";
+                        Image imagePreview;
+                        var imagePath = $"{Global.WorkDir}\\{Global.Skins.SkinList[index].SkinTextureFile}";
 
-                        using (var BmpTemp = new Bitmap(ImagePath))
+                        using (var bmpTemp = new Bitmap(imagePath))
                         {
-                            Imagem = new Bitmap(BmpTemp);
+                            imagePreview = new Bitmap(bmpTemp);
                         }
 
-                        return ResizeImage(Imagem, form.Get_PictureBoxSize());
+                        return ResizeImage(imagePreview, form.Get_PictureBoxSize());
                     }
                 }
                 else
@@ -66,30 +66,30 @@ namespace SkinPackCreator.Utils
         {
             try
             {
-                var Proportion = size / sourceImage.Width;
-                float Scale = float.Parse(Proportion.ToString());
+                var proportion = size / sourceImage.Width;
+                float scale = float.Parse(proportion.ToString());
 
-                int Width = (int)(sourceImage.Width * Scale);
-                int Height = (int)(sourceImage.Height * Scale);
+                var width = (int)(sourceImage.Width * scale);
+                var height = (int)(sourceImage.Height * scale);
 
-                Bitmap Bitmap = new Bitmap(Width, Height);
+                Bitmap bitmapImage = new Bitmap(width, height);
 
-                using (Graphics Graph = Graphics.FromImage(Bitmap))
+                using (Graphics graph = Graphics.FromImage(bitmapImage))
                 {
-                    Graph.InterpolationMode = InterpolationMode.NearestNeighbor;
+                    graph.InterpolationMode = InterpolationMode.NearestNeighbor;
 
-                    Point[] Destination =
+                    Point[] destination =
                     {
                         new Point(0, 0),
-                        new Point(Width, 0),
-                        new Point(0, Height),
+                        new Point(width, 0),
+                        new Point(0, height),
                     };
 
-                    Rectangle Source = new Rectangle(0, 0, sourceImage.Width, sourceImage.Height);
-                    Graph.DrawImage(sourceImage, Destination, Source, GraphicsUnit.Pixel);
+                    Rectangle source = new Rectangle(0, 0, sourceImage.Width, sourceImage.Height);
+                    graph.DrawImage(sourceImage, destination, source, GraphicsUnit.Pixel);
                 }
 
-                return (Image)Bitmap;
+                return (Image)bitmapImage;
             }
             catch (Exception)
             {
@@ -103,19 +103,19 @@ namespace SkinPackCreator.Utils
         }
         public Icon LoadIconFromBase64(string imageBase64)
         {
-            Bitmap Bitmap = (Bitmap)LoadImageFromBase64(imageBase64);
+            Bitmap bitmapImage = (Bitmap)LoadImageFromBase64(imageBase64);
 
-            IntPtr pIcon = Bitmap.GetHicon();
+            IntPtr pIcon = bitmapImage.GetHicon();
             return Icon.FromHandle(pIcon);
         }
         public Image LoadImageFromBase64(string imageBase64)
         {
-            byte[] Bytes = Convert.FromBase64String(imageBase64);
+            byte[] bytes = Convert.FromBase64String(imageBase64);
 
-            Image Image;
-            using (MemoryStream Ms = new MemoryStream(Bytes)) { Image = Image.FromStream(Ms); }
+            Image image;
+            using (MemoryStream ms = new MemoryStream(bytes)) { image = Image.FromStream(ms); }
 
-            return Image;
+            return image;
         }
         public void OpenDonate()
         {

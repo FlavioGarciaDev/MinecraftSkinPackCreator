@@ -5,6 +5,7 @@ using FolderProcessing = SkinPackCreator.FolderProcessing;
 using System.Threading.Tasks;
 using System.Data;
 using SkinPackCreator.Models;
+using System.Linq;
 
 namespace SkinPackCreator.ClickEvents
 {
@@ -13,10 +14,14 @@ namespace SkinPackCreator.ClickEvents
         private const string SAVEDIALOG_TITLE = "Choose the folder and the McPack name";
         private const string MCPACK_FILTER = "McPack Files (*.mcpack)|*.mcpack";
         private const string MCPACK_OPEN_TITLE = "Select a McPack file";
+        private const string TEXTURE_OPEN_TITLE = "Select a texture file";
+        private const string MULTIPLE_TEXTURE_OPEN_TITLE = "Select multiple texture files";
         private const string IMAGE_FILTER = "Images (*.png)|*.png";
+        private const string IMAGE_EXTENSION = ".png";
         private const string LOAD_OK = "Everything loaded! :D";
         private const string MCPACK_CREATED = "New McPack created!";
         private const string NEW_SKIN = "A new item has been added!";
+        private const string SKIN_DEFAULT_NAME = "New Skin";
 
         private FileProcessing.FileProcessing FileProcessing { get; set; }
         private FolderProcessing.FolderProcessing FolderProcessing { get; set; }
@@ -28,6 +33,8 @@ namespace SkinPackCreator.ClickEvents
             Utils = new Utils.Utils();
         }
 
+        #region Public Methods
+
         public void NewMcpackFile(Form1 form)
         {
             SaveFileDialog Sfd = new SaveFileDialog()
@@ -36,9 +43,9 @@ namespace SkinPackCreator.ClickEvents
                 Filter = MCPACK_FILTER
             };
 
-            var Result = Sfd.ShowDialog();
+            var result = Sfd.ShowDialog();
 
-            if (Result == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 Global.McpackFilePath = Sfd.FileName;
                 Global.WorkDir = $"{Path.GetDirectoryName(Sfd.FileName)}\\{Path.GetFileNameWithoutExtension(Sfd.FileName)}";
@@ -50,35 +57,44 @@ namespace SkinPackCreator.ClickEvents
                 FolderProcessing.CreateWorkDir();
 
                 form.Set_StatusLabel(MCPACK_CREATED);
-
             }
         }
-        public async Task SaveMcpack(Form1 form)
+        public async Task<bool> SaveMcpack(Form1 form)
         {
             if (Global.Skins.SkinList.Count > 0)
             {
+                if (!ValidSkins())
+                {
+                    MessageBox.Show("You have empty skins in your list! Remove or select name/texture file for them.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+
                 FileProcessing.CreateSkinsJsonFile(form);
                 FileProcessing.CreateEnUsLangFile(form);
                 FileProcessing.CreateLanguagesJsonFile(form);
                 await FileProcessing.CreateManifestJsonFile(form);
                 FileProcessing.CreateMcpackFile(form);
+
+                return true;
             }
             else
             {
                 MessageBox.Show("There's nothing to save!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+            return false;
         }
         public void OpenMcPackFile(Form1 form)
         {
             OpenFileDialog fdb = new OpenFileDialog
             {
-                Filter = MCPACK_FILTER,
-                Title = MCPACK_OPEN_TITLE
+                Title = MCPACK_OPEN_TITLE,
+                Filter = MCPACK_FILTER
             };
 
-            var Result = fdb.ShowDialog();
+            var result = fdb.ShowDialog();
 
-            if (Result == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 Global.McpackFilePath = fdb.FileName;
 
@@ -99,24 +115,71 @@ namespace SkinPackCreator.ClickEvents
         {
             OpenFileDialog Ofd = new OpenFileDialog
             {
+                Title = TEXTURE_OPEN_TITLE,
                 Filter = IMAGE_FILTER
             };
 
-            var Result = Ofd.ShowDialog();
+            var result = Ofd.ShowDialog();
 
-            if (Result == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
-                int Index = form.Get_SkinListSelectedIndex();
-                var NomeArquivo = Path.GetFileName(Ofd.FileName);
+                var index = form.Get_SkinListSelectedIndex();
+                var file = Path.GetFileName(Ofd.FileName);
+                var filename = Path.GetFileNameWithoutExtension(Ofd.FileName);
 
-                Global.Skins.SkinList[Index].SkinTextureFile = NomeArquivo;
-                form.Set_SkinTexture(NomeArquivo);
+                Global.Skins.SkinList[index].SkinTextureFile = file;
 
-                File.Copy(Ofd.FileName, $"{Global.WorkDir}\\{NomeArquivo}", true);
+                UpdateDefaultSkinName(form, index, filename);
 
-                form.Set_SkinBoxPicture(Utils.LoadImagePreview(form, Index));
+                form.Set_SkinTexture(file);
 
-                form.Set_StatusLabel($"{NomeArquivo} loaded with high quality. Nice!");
+                File.Copy(Ofd.FileName, $"{Global.WorkDir}\\{file}", true);
+
+                form.Set_SkinBoxPicture(Utils.LoadImagePreview(form, index));
+
+                form.Set_StatusLabel($"{file} loaded with high quality. Nice!");
+            }
+        }
+        public void OpenMultipleTextureFiles(Form1 form)
+        {
+            OpenFileDialog Ofd = new OpenFileDialog
+            {
+                Title = MULTIPLE_TEXTURE_OPEN_TITLE,
+                Filter = IMAGE_FILTER,
+                Multiselect = true
+            };
+
+            var result = Ofd.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                var imagens = Ofd.FileNames.Where(x => Path.GetExtension(x) == IMAGE_EXTENSION);
+
+                foreach (var item in imagens)
+                {
+                    var filename = Path.GetFileNameWithoutExtension(item);
+                    var file = Path.GetFileName(item);
+
+                    Global.Skins.SkinList.Add(
+                       new SkinModel.Skin()
+                       {
+                           SkinFormat = Global.DefaultSkinFormat,
+                           SkinName = filename,
+                           SkinTextureFile = file,
+                           SkinType = "free"
+                       }
+                   );
+
+                    form.Set_SkinTexture(item);
+
+                    File.Copy(item, $"{Global.WorkDir}\\{file}", true);
+
+                    FileProcessing.FillSkinsList(form);
+                }
+
+                var index = form.Get_SkinListItemsCount() - 1;
+                Utils.SelectNextListItem(form, index);
+                form.Set_SkinBoxPicture(Utils.LoadImagePreview(form, index));
             }
         }
         public void AddNewSkin(Form1 form)
@@ -141,20 +204,42 @@ namespace SkinPackCreator.ClickEvents
         }
         public void RemoveSkin(Form1 form)
         {
-            int Index = form.Get_SkinListSelectedIndex();
-            var ImageFile = $"{Global.WorkDir}\\{Global.Skins.SkinList[Index].SkinTextureFile}";
+            var index = form.Get_SkinListSelectedIndex();
+            var file = $"{Global.WorkDir}\\{Global.Skins.SkinList[index].SkinTextureFile}";
 
-            if (File.Exists(ImageFile))
-                File.Delete(ImageFile);
+            if (File.Exists(file))
+                File.Delete(file);
 
-            Global.Skins.SkinList.RemoveAt(Index);
+            Global.Skins.SkinList.RemoveAt(index);
 
             FileProcessing.FillSkinsList(form);
-            Utils.SelectNextListItem(form, Index);
+            Utils.SelectNextListItem(form, index);
         }
         public void OpenInstalledSkinFolder()
         {
             FolderProcessing.OpenInstalledPacks();
         }
+
+        #endregion
+
+        #region Private Methods
+
+        private void UpdateDefaultSkinName(Form1 form, int index, string filename)
+        {
+            if (Global.Skins.SkinList[index].SkinName.Contains(SKIN_DEFAULT_NAME))
+            {
+                Global.Skins.SkinList[index].SkinName = filename;
+                FileProcessing.FillSkinsList(form);
+                form.Set_SkinListSelectedItem(index);
+            }
+        }
+        private bool ValidSkins()
+        {
+            if (Global.Skins.SkinList.Any(x => string.IsNullOrEmpty(x.SkinName) || string.IsNullOrEmpty(x.SkinTextureFile)))
+                return false;
+
+            return true;
+        }
+        #endregion
     }
 }
