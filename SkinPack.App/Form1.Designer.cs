@@ -375,7 +375,7 @@ namespace SkinPackCreator
             this.Controls.Add(this.listSkins);
             this.Controls.Add(this.menuStripMain);
             this.Name = "Form1";
-            this.Text = "Minecraft Skin Pack Creator for Bedrock Edition - v1.1.0";
+            this.Text = "Minecraft Skin Pack Creator for Bedrock Edition - v1.1.1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.menuStripMain.ResumeLayout(false);
