@@ -74,7 +74,7 @@ namespace SkinPackCreator.FileProcessing
 
             form.Set_StatusLabel($"{languagesJsonFile} created!");
         }
-        public async Task CreateManifestJsonFile(Form1 form)
+        public void CreateManifestJsonFile(Form1 form)
         {
             var manifestJsonFile = Global.ManifestJsonFilePath;
 
@@ -82,8 +82,8 @@ namespace SkinPackCreator.FileProcessing
             {
                 form.Set_StatusLabel($"Generating UUIDs...");
 
-                var uuid1 = await Utils.RequestUUID();
-                var uuid2 = await Utils.RequestUUID();
+                var uuid1 = Utils.RequestUUID();
+                var uuid2 = Utils.RequestUUID();
 
                 form.Set_StatusLabel($"Creating {manifestJsonFile}...");
 

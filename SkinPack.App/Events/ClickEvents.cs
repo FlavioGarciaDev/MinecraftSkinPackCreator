@@ -59,7 +59,7 @@ namespace SkinPackCreator.ClickEvents
                 form.Set_StatusLabel(MCPACK_CREATED);
             }
         }
-        public async Task<bool> SaveMcpack(Form1 form)
+        public bool SaveMcpack(Form1 form)
         {
             if (Global.Skins.SkinList.Count > 0)
             {
@@ -72,7 +72,7 @@ namespace SkinPackCreator.ClickEvents
                 FileProcessing.CreateSkinsJsonFile(form);
                 FileProcessing.CreateEnUsLangFile(form);
                 FileProcessing.CreateLanguagesJsonFile(form);
-                await FileProcessing.CreateManifestJsonFile(form);
+                FileProcessing.CreateManifestJsonFile(form);
                 FileProcessing.CreateMcpackFile(form);
 
                 return true;

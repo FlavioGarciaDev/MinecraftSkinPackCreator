@@ -47,11 +47,11 @@ namespace SkinPackCreator
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private async void MenuSave_Click(object sender, EventArgs e)
+        private void MenuSave_Click(object sender, EventArgs e)
         {
             try
             {
-                var result = await ClickEvents.SaveMcpack(this).ConfigureAwait(true);
+                var result = ClickEvents.SaveMcpack(this);
                 if (Global.InstallFile && result)
                     Process.Start(Global.McpackFilePath);
 
