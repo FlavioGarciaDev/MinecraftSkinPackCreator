@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Windows.Forms;
 using FileProcessing = SkinPackCreator.FileProcessing;
 using FolderProcessing = SkinPackCreator.FolderProcessing;
@@ -214,6 +214,62 @@ namespace SkinPackCreator.ClickEvents
 
             FileProcessing.FillSkinsList(form);
             Utils.SelectNextListItem(form, index);
+        }
+        public void MoveUp(Form1 form)
+        {
+            var index = form.Get_SkinListSelectedIndex();
+
+            if (index < 1 && Global.Skins.SkinList.Count >= 2)
+            {
+                MessageBox.Show("The selected skin is not able to move further up!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (Global.Skins.SkinList.Count <= 1)
+            {
+                MessageBox.Show("You need at least 2 skins to be able to move the currently selected skin up!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                var temp = Global.Skins.SkinList[index];
+
+                Global.Skins.SkinList[index] = Global.Skins.SkinList[index - 1];
+                Global.Skins.SkinList[index - 1] = temp;
+
+                FileProcessing.FillSkinsList(form);
+                Utils.SelectNextListItem(form, index - 1);
+
+                form.Focus_SkinName();
+                form.SelectAll_SkinName();
+
+                form.Set_StatusLabel("Skin moved up!");
+            }
+        }
+        public void MoveDown (Form1 form)
+        {
+            var index = form.Get_SkinListSelectedIndex();
+
+            if (Global.Skins.SkinList.Count <= 1)
+            {
+                MessageBox.Show("You need at least 2 skins to be able to move the currently selected skin down!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (index + 1 == Global.Skins.SkinList.Count)
+            {
+                MessageBox.Show("The selected skin is not able to move further down!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                var temp = Global.Skins.SkinList[index];
+
+                Global.Skins.SkinList[index] = Global.Skins.SkinList[index + 1];
+                Global.Skins.SkinList[index + 1] = temp;
+
+                FileProcessing.FillSkinsList(form);
+                Utils.SelectNextListItem(form, index + 1);
+
+                form.Focus_SkinName();
+                form.SelectAll_SkinName();
+
+                form.Set_StatusLabel("Skin moved down!");
+            }
         }
         public void OpenInstalledSkinFolder()
         {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace SkinPackCreator
 {
@@ -57,6 +57,8 @@ namespace SkinPackCreator
             this.toolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
+            this.buttonMoveUp = new System.Windows.Forms.Button();
+            this.buttonMoveDown = new System.Windows.Forms.Button();
             this.comboBoxFormat = new System.Windows.Forms.ComboBox();
             this.buttonDonate = new System.Windows.Forms.Button();
             this.buttonImportMultiple = new System.Windows.Forms.Button();
@@ -305,6 +307,26 @@ namespace SkinPackCreator
             this.buttonRemove.Text = "Remove";
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.ButtonRemove_Click);
+            //
+            // buttonMoveUp
+            //
+            this.buttonMoveUp.Location = new System.Drawing.Point(207, 172);
+            this.buttonMoveUp.Name = "buttonMoveUp";
+            this.buttonMoveUp.Size = new System.Drawing.Size(40, 40);
+            this.buttonMoveUp.TabIndex = 50;
+            this.buttonMoveUp.Text = "▲";
+            this.buttonMoveUp.UseVisualStyleBackColor = true;
+            this.buttonMoveUp.Click += new System.EventHandler(this.ButtonMoveUp_Click);
+            //
+            // buttonMoveDown
+            //
+            this.buttonMoveDown.Location = new System.Drawing.Point(207, 222);
+            this.buttonMoveDown.Name = "buttonMoveDown";
+            this.buttonMoveDown.Size = new System.Drawing.Size(40, 40);
+            this.buttonMoveDown.TabIndex = 60;
+            this.buttonMoveDown.Text = "▼";
+            this.buttonMoveDown.UseVisualStyleBackColor = true;
+            this.buttonMoveDown.Click += new System.EventHandler(this.ButtonMoveDown_Click);
             // 
             // comboBoxFormat
             // 
@@ -358,8 +380,10 @@ namespace SkinPackCreator
             this.Controls.Add(this.buttonImportMultiple);
             this.Controls.Add(this.buttonDonate);
             this.Controls.Add(this.comboBoxFormat);
-            this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonAdd);
+            this.Controls.Add(this.buttonRemove);
+            this.Controls.Add(this.buttonMoveUp);
+            this.Controls.Add(this.buttonMoveDown);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.pictureBoxSkin);
             this.Controls.Add(this.buttonBrowseSkin);
@@ -375,7 +399,7 @@ namespace SkinPackCreator
             this.Controls.Add(this.listSkins);
             this.Controls.Add(this.menuStripMain);
             this.Name = "Form1";
-            this.Text = "Minecraft Skin Pack Creator for Bedrock Edition - v1.1.1";
+            this.Text = "Minecraft Skin Pack Creator for Bedrock Edition - v1.1.2";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.menuStripMain.ResumeLayout(false);
@@ -411,6 +435,8 @@ namespace SkinPackCreator
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatus;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.Button buttonMoveUp;
+        private System.Windows.Forms.Button buttonMoveDown;
         private System.Windows.Forms.ToolStripMenuItem menuSave;
         private System.Windows.Forms.ToolStripMenuItem menuInstall;
         private System.Windows.Forms.TextBox textBoxPackDescription;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -124,6 +124,34 @@ namespace SkinPackCreator
                     return;
 
                 ClickEvents.RemoveSkin(this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ButtonMoveUp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Global.Skins.SkinList.Count <= 0)
+                    return;
+
+                ClickEvents.MoveUp(this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ButtonMoveDown_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Global.Skins.SkinList.Count <= 0)
+                    return;
+
+                ClickEvents.MoveDown(this);
             }
             catch (Exception ex)
             {
